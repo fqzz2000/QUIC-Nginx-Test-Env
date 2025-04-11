@@ -6,8 +6,8 @@ RUN apk add --no-cache openssl
 # 创建证书目录
 RUN mkdir -p /etc/nginx/certs
 
-# 复制配置文件
-COPY nginx.conf /etc/nginx/nginx.conf
+# 复制配置文: mount volumes instead
+# COPY nginx.conf /etc/nginx/nginx.conf
 
 # 创建文件目录
 RUN mkdir -p /usr/share/nginx/html/files
