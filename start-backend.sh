@@ -1,1 +1,1 @@
-docker run -d --rm --name nginx-backend  -v $(pwd)/data:/usr/share/nginx/html/files -v $(pwd)/certs:/etc/nginx/certs -v $(pwd)/backend/nginx.conf:/etc/nginx/nginx.conf   --network host  fqzz2000/nginx-backend
+docker run -d --rm --name nginx-backend  -v $(pwd)/data:/usr/share/nginx/html/files -v $(pwd)/certs:/etc/nginx/certs -v $(pwd)/backend/nginx.conf:/etc/nginx/nginx.conf  --network host  fqzz2000/nginx-backend

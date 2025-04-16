@@ -1,1 +1,4 @@
-docker run --name nginx-frontend-http3 --rm  --network host   -v $(pwd)/frontend/nginx-http3.conf:/etc/nginx/nginx.conf   -v $(pwd)/certs:/etc/nginx/certs   -d fqzz2000/nginx-frontend
+docker run --name envoy-proxy --network host \
+  -v $(pwd)/frontend/envoy.yaml:/etc/envoy/envoy.yaml \
+  -v $(pwd)/certs:/etc/envoy/certs \
+  -d envoy-proxy-image

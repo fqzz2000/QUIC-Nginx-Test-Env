@@ -1,10 +1,8 @@
-FROM nginx:mainline-alpine
+FROM envoyproxy/envoy:v1.26-latest
 
-# 安装必要的依赖和QUIC支持
-RUN apk add --no-cache openssl pcre-dev zlib-dev
+# 创建配置目录
+RUN mkdir -p /etc/envoy/certs
 
+EXPOSE 10000 20000 30000
 
-# 暴露HTTP3端口 
-EXPOSE 80 443/udp
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/usr/local/bin/envoy", "-c", "/etc/envoy/envoy.yaml"]
