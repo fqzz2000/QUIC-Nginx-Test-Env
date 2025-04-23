@@ -49,6 +49,7 @@ static_resources:
                 route:
                   host_rewrite_literal: node1.example.com
                   cluster: service_nginx
+                  timeout: 3600s
 
 
   - name: listener_udp
@@ -91,6 +92,7 @@ static_resources:
                 route:
                   host_rewrite_literal: node1.example.com
                   cluster: service_nginx
+                  timeout: 3600s
           http3_protocol_options:
           http_filters:
           - name: envoy.filters.http.router
@@ -98,7 +100,7 @@ static_resources:
               "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
   clusters:
   - name: service_nginx
-    connect_timeout: 30s
+    connect_timeout: 3600s
     type: LOGICAL_DNS
     dns_lookup_family: V4_ONLY
     lb_policy: ROUND_ROBIN
