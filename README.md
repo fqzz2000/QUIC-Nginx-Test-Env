@@ -24,16 +24,21 @@ This allows for performance testing of protocol conversion in a controlled envir
 ├── backend
 │   ├── Dockerfile
 │   └── nginx.conf
+├── cert-envoy
+│   ├── servercert.pem
+│   └── serverkey.pem
 ├── certs
 │   ├── nginx.crt
 │   └── nginx.key
+├── curl3.sh
 ├── data
 │   └── test_file_5gb.bin
 ├── docker-compose.yml
+├── envoy.yaml
 ├── frontend
 │   ├── Dockerfile
-│   ├── nginx.conf
-│   └── nginx-http3.conf
+│   ├── envoy-h3-client.yaml
+│   └── envoy.yaml
 ├── README.md
 ├── start-backend.sh
 └── start-h3-lb.sh
@@ -41,7 +46,7 @@ This allows for performance testing of protocol conversion in a controlled envir
 
 ## Getting Started
 
-### Build Docker Images
+### Build Docker Images (optional)
 
 Before starting the services, you need to build the Docker images:
 
@@ -53,7 +58,7 @@ docker build -t nginx-backend -f backend/Dockerfile ./backend
 docker build -t nginx-frontend-test -f frontend/Dockerfile ./frontend
 ```
 
-### Option 1: Using Scripts
+### Using Scripts
 
 You can start the services using the provided scripts:
 
@@ -67,20 +72,13 @@ You can start the services using the provided scripts:
 ./start-h3-lb.sh
 ```
 
-### Option 2: Using Docker Compose
 
-Alternatively, you can use Docker Compose to start both services at once:
-
-```bash
-docker-compose up -d
-```
-
-## Testing
+## Testing (Not work yet)
 
 To test the HTTP3 protocol conversion, use a curl version compiled with HTTP3 support:
 
 ```bash
-curl -k --http3 https://localhost:8443/test_file_5gb.bin
+curl -k --http3 https://localhost:10000/test_file_5gb.bin
 ```
 
 You can test download performance or monitor traffic to evaluate the protocol conversion overhead.
@@ -88,9 +86,10 @@ You can test download performance or monitor traffic to evaluate the protocol co
 ## Notes
 
 - The backend server listens on port 443 with HTTP2+TLS
-- The frontend load balancer listens on port 8443 with HTTP3 support
+- The frontend load balancer listens on port 10000 with HTTP3 support
 - Both services use the same TLS certificates for simplicity
 - Host networking mode is used to simplify the setup
+- Proper setting of DNS is needed for cross node benchmark
 
 ## Stopping Services
 
